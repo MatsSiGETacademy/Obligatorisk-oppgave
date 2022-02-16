@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .marg {
+            background-color: rgb(49, 76, 117);
+            border: 3px rgb(255, 103, 103);
+            margin: 15rem;    
+            }
+        .bodyBKG {
+            background-color: rgb(15, 44, 16);
+        }
+        .strong{
+            font-weight: bold;
+            color: pink;
+        }
+
+    </style>
+</head>
+<body class="bodyBKG">
+        <!-- OPPGAVE: Lag en "Orakel-app" hvor man kan skrive spørsmål i et inputfelt og få et tilfeldig svar -- 
+        i minst ett tilfelle et IKKE tilfeldig svar ;)
+        Bruk MVC
+        Bruk minst ett array
+        Ha et inputfelt og en knapp til å spørre "orakelet"
+        Minst én if setning - en setning eller et ord triggrer en viss respons fra orakelet
+        -->
+    <div id="ChatbotenAnna" class="marg"> </div>
+
+        <script>
+
+            //model
+            const svarOmHei = 'hei'
+            const svarOmFormen = 'hvordan går det'
+            const blank = ''
+            let svarHistorik = ''
+            let ArraySvar = 
+            // 3 arrays per linje, hvor man starter på 0. 0 1 2 3 4 5 6 = 7 forskjellige tall
+            ['null sånn at math random starter på 1', 'jeg ville ikke formulert det sånn', 'det er mulig men jeg er kanskje ikke enig', 'har du ikke en bedre app å spørre', 
+            'trur du en datamaskin vet det', 'nå er du rar', 'spør en gud kanskje' ]
+
+            //view
+            oppdatereModel();
+            
+            function oppdatereModel(Svaret) { 
+                let meldingFraBotenAnna = Svaret == undefined ? 'Skriv hei' : Svaret;          
+                document.getElementById('ChatbotenAnna').innerHTML = `
+                <h2> Chatbot 2000 her her!</h2>
+                    <input 
+                            type="text"
+                            id="tekstBoksen"
+                    />
+
+                <button onclick="SendeMelding(document.getElementById('tekstBoksen'))">
+                    Send
+                </button>
+
+                <h1 id="svar">  ${meldingFraBotenAnna} </h1>
+                `
+                }
+                
+            //controller
+            function SendeMelding(inputFraTekstBoks){
+            console.log(inputFraTekstBoks.value)
+
+            if (inputFraTekstBoks.value == svarOmHei) {
+                svarHistorik += 'bruker: ' + inputFraTekstBoks.value + '</br>' 
+                svarHistorik += 'chatbot: heisann! spør meg <strong> hvordan går det </strong> før du spør noe annet ' + '</br>'
+                oppdatereModel(svarHistorik);
+             }
+
+            else if (inputFraTekstBoks.value == svarOmFormen){
+            svarHistorik += 'bruker: ' + inputFraTekstBoks.value + '</br>' 
+            svarHistorik += 'chatbot: det går bra. kjør på med andre spørmål, og bare spørsmål!' + '</br>'
+            oppdatereModel(svarHistorik);
+            }
+
+            else if (inputFraTekstBoks.value == blank) {
+            svarHistorik += '' 
+            svarHistorik += 'chatbot: send, sende hva?' + '</br>'
+            oppdatereModel(svarHistorik);
+            }
+
+            else {
+                tilfeldigSvar = Math.floor(Math.random() * 6) + 1;
+                svarHistorik += 'bruker: ' + inputFraTekstBoks.value + '</br>'
+                svarHistorik += 'chatbot: ' + ArraySvar [tilfeldigSvar] + '</br>';
+            oppdatereModel(svarHistorik);
+            }
+            }
+
+        </script>
+
+</body>
+
+</html>
